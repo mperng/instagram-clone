@@ -4,7 +4,8 @@
   "description": "A clone of instagram written in pure JS, HTML, and CSS.",
   "main": "index.js",
   "scripts": {
-    "start": "parcel index.html"
+    "start": "parcel index.html",
+    "build": "parcel build index.js --public-url ./"
   },
   "repository": {
     "type": "git",
