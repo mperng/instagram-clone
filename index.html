@@ -9,10 +9,6 @@
 </head>
 
 <body>
-	<div class="modal-overlay closed" id="modal-overlay">
-		<div class="modal" id="modal"></div>
-		<div class="close-button" id="close-button"></div>
-	</div>
 	<div id="container">
 		<div id="profile">
 			<header>
@@ -20,40 +16,124 @@
 			</header>
 			<section class="profile-info">
 				<h1 class="handle">Mperng</h1>
-				<p class="truncate">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 			</section>
 		</div>
-		<ul class="gallery">
-			<li class="photo">
-				<a href="#"><img src="https://picsum.photos/293?random=1"/></a>
+		<ul id="gallery">
+			<li>
+        <img
+          class="photo"
+          src="https://picsum.photos/id/1015/293/293"
+          alt="An awesome view of the Norwegian fjords!"
+        />
 			</li>
-			<li class="photo">
-				<a href="#"><img src="https://picsum.photos/293?random=2"/></a>
+			<li>
+        <img
+          class="photo"
+          src="https://picsum.photos/id/179/293/293"
+          alt="The beach at sunset."
+        />
 			</li>
-			<li class="photo">
-				<a href="#"><img src="https://picsum.photos/293?random=3"/></a>
+			<li>
+        <img
+          class="photo"
+          src="https://picsum.photos/id/1025/293/293"
+          alt="My sad pug in a blanket in the forest."
+        />
 			</li>
-			<li class="photo">
-				<a href="#"><img src="https://picsum.photos/293?random=4"/></a>
+			<li>
+        <img
+          class="photo"
+          src="https://picsum.photos/id/188/293/293"
+          alt="Snowy rooftops in the winter in a city somewhere in the world."
+        />
 			</li>
-			<li class="photo">
-				<a href="#"><img src="https://picsum.photos/293?random=5"/></a>
+			<li>
+        <img
+          class="photo"
+          src="https://picsum.photos/id/20/293/293"
+          alt="I should be studying, but I'm actually looking at my phone :)"
+        />
 			</li>
-			<li class="photo">
-				<a href="#"><img src="https://picsum.photos/293?random=6"/></a>
+			<li>
+        <img
+          class="photo"
+          src="https://picsum.photos/id/274/293/293"
+          alt="Times Square is a major commercial intersection, tourist destination, entertainment center and neighborhood in the Midtown Manhattan section of New York City at the junction of Broadway and Seventh Avenue. It stretches from West 42nd to West 47th Streets. Brightly adorned with billboards and advertisements, Times Square is sometimes referred to as 'The Crossroads of the World', 'The Center of the Universe', 'the heart of The Great White Way', and 'the heart of the world'. One of the world's busiest pedestrian areas, it is also the hub of the Broadway Theater District and a major center of the world's entertainment industry. Times Square is one of the world's most visited tourist attractions, drawing an estimated 50 million visitors annually. Approximately 330,000 people pass through Times Square daily, many of them tourists, while over 460,000 pedestrians walk through Times Square on its busiest days."
+        />
 			</li>
-			<li class="photo">
-				<a href="#"><img src="https://picsum.photos/293?random=7"/></a>
+			<li>
+        <img
+          class="photo"
+          src="https://picsum.photos/id/29/293/293"
+          alt="Mountains somewhere in the world."
+        />
 			</li>
-			<li class="photo">
-				<a href="#"><img src="https://picsum.photos/293?random=8"/></a>
+			<li>
+        <img
+          class="photo"
+          src="https://picsum.photos/id/974/293/293"
+          alt="The milky way at night."
+        />
 			</li>
-			<li class="photo">
-				<a href="#"><img src="https://picsum.photos/293?random=9"/></a>
+			<li >
+        <img
+          class="photo"
+          src="https://picsum.photos/id/966/293/293"
+          alt="Misty mountains"
+        />
 			</li>
 		</ul>
-	</div>
-	<script src="./index.js"></script>
+  </div>
+  <div class="modal-overlay closed" id="modal-overlay" onclick="closeModal()">
+    <div id="modal">
+      <div id="modal-image-container"></div>
+      <div id="modal-info">
+        <header id="modal-profile">
+          <img class="modal-profile-photo" src="https://picsum.photos/id/177/2515/1830" />
+          <div class="modal-handle">Mperng</div>
+        </header>
+        <div id="modal-description">
+        </div>
+      </div>
+    </div>
+    <div class="close-button"></div>
+  </div>
+  <script>
+    let fullSizeImage;
+    let modalImage;
+    let modalImageDescription;
+    const modal = document.querySelector("#modal");
+    const modalImageContainer = document.querySelector("#modal-image-container");
+    const modalDescription = document.querySelector("#modal-description");
+    const modalOverlay = document.querySelector("#modal-overlay");
+    const images = document.querySelector("#gallery").querySelectorAll(".photo");
+
+    for (let image of images) {
+      const photoId = image.getAttribute("src").split("/")[4];
+      const description = image.getAttribute("alt");
+      image.addEventListener("click", function() {
+        openModal(photoId, description);
+      });
+    }
+
+    function closeModal() {
+      modalImageContainer.removeChild(modalImage);
+      modalDescription.removeChild(modalImageDescription);
+      modalOverlay.classList.toggle("closed");
+    }
+
+    function openModal(photoId, description) {
+      modalOverlay.classList.toggle("closed");
+      modalImage = document.createElement("IMG");
+      modalImage.setAttribute("id", "modal-image");
+      modalImage.setAttribute("src", "https://picsum.photos/id/" + photoId + "/600/600");
+      modalImageContainer.appendChild(modalImage);
+      modalImageDescription = document.createElement("p");
+      modalImageDescription.innerHTML = description;
+      modalDescription.appendChild(modalImageDescription);
+    }
+  </script>
 </body>
 
 </html>
