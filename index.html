@@ -85,47 +85,22 @@
 			</li>
 		</ul>
   </div>
-  <div id="modal-overlay" class="closed" onclick="closeModal()">
-    <div id="modal" onclick="event.stopPropagation()">
+  <div id="modal-overlay" class="closed">
+    <div id="modal">
       <div id="modal-image"></div>
       <div id="modal-info">
         <header id="modal-profile">
-          <img class="modal-profile-photo" src="https://picsum.photos/id/177/2515/1830" />
-          <div class="modal-handle">Mperng</div>
+          <img id="modal-profile-photo" src="https://picsum.photos/id/177/2515/1830" />
+          <div id="modal-handle">Mperng</div>
         </header>
         <div id="modal-description">
           <p></p>
         </div>
       </div>
     </div>
-    <div class="close-button"></div>
+    <div id="modal-close-button"></div>
   </div>
-  <script>
-    const modalImage = document.querySelector("#modal-image");
-    const modalDescription = document.querySelector("#modal-description").querySelector("p");
-    const modalOverlay = document.querySelector("#modal-overlay");
-    const images = document.querySelector("#gallery").querySelectorAll(".photo");
-
-    for (let image of images) {
-      const photoId = image.getAttribute("src").split("/")[4];
-      const description = image.getAttribute("alt");
-      image.addEventListener("click", function() {
-        openModal(photoId, description);
-      });
-    }
-
-    function closeModal() {
-      modalImage.setAttribute("style", "");
-      modalDescription.innerHTML = "";
-      modalOverlay.classList.toggle("closed");
-    }
-
-    function openModal(photoId, description) {
-      modalImage.setAttribute("style", "background-image:url('https://picsum.photos/id/" + photoId + "/600/600')")
-      modalDescription.innerHTML = description;
-      modalOverlay.classList.toggle("closed");
-    }
-  </script>
+  <script src="index.js"></script>
 </body>
 
 </html>
