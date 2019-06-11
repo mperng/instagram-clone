@@ -1,11 +1,11 @@
-
 const images = document.querySelector("#gallery").querySelectorAll(".photo");
 
-for (let image of images) {
-  const photoId = image.getAttribute("src").split("/")[4];
+for (let i = 0; i < images.length; i++) {
+  const image = images[i];
+  const photoSrc = image.getAttribute("src");
   const description = image.getAttribute("alt");
   image.addEventListener("click", function () {
-    openModal(photoId, description);
+    openModal(photoSrc, description);
   });
 }
 
@@ -19,8 +19,8 @@ function closeModal() {
   modalOverlay.classList.toggle("closed");
 }
 
-function openModal(photoId, description) {
-  modalImage.setAttribute("style", "background-image:url('https://picsum.photos/id/" + photoId + "/600/600')")
+function openModal(photoSrc, description) {
+  modalImage.setAttribute("style", "background-image:url(" + photoSrc + ")");
   modalDescription.innerHTML = description;
   modalOverlay.classList.toggle("closed");
 }
